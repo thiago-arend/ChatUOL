@@ -1,8 +1,9 @@
 axios.defaults.headers.common['Authorization'] = 'jJo7ORw9ajCoGsHMsNZCQBo7';
 const input = document.querySelector(".footer input");
 
-// entrar na sala
+// prepara dados para requisição de login do usuário
 let nomeUsuario = prompt("Digite seu nome:");
+input.focus(); //traz o foco para o input de texto
 let usuario = {name: nomeUsuario};
 let promise = axios.post("https://mock-api.driven.com.br/api/vm/uol/participants", usuario);
 let resposta, promiseAux;
@@ -50,7 +51,6 @@ function usuarioLogado(usuario) {
         console.log("=== VERIFICA STATUS USUARIO ===")
         promise = axios.post("https://mock-api.driven.com.br/api/vm/uol/status", usuario);
         promise.then((res) => {
-            console.log(res);
 
             // atualiza chat com mensagens
             atualizaChatPeriodico();
@@ -63,9 +63,10 @@ function usuarioLogado(usuario) {
 }
 
 function preparaMensagem() {
-    let msg = document.querySelector(".footer input").value;
+    const msg = input.value;
+    input.value = "";
+    input.focus();
     enviarMensagem(msg);
-    msg = "";
 }
 
 function enviarMensagem(msg) {
