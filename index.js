@@ -112,11 +112,20 @@ function imprimeMensagens(mensagens) {
     let texto;
     if(mensagens.length > 1){ // se há pelo menos uma mensagem
         mensagens.forEach(m => {
-            texto += `<div class="mensagem">
-            <p class="mensagem-hora">(${m.time})</p>
-            <p class="mensagem-user">${m.from}</p>
-            <p class="mensagem-conteudo">${m.text}</p>
-            </div>`;
+            // se a mensagem é de status, muda a cor
+            if (m.text === "entra na sala..." || m.text === "sai da sala...") {
+                texto += `<div class="mensagem mensagem-status">
+                <p class="mensagem-hora">(${m.time})</p>
+                <p class="mensagem-user">${m.from}</p>
+                <p class="mensagem-conteudo">${m.text}</p>
+                </div>`;
+            } else {
+                texto += `<div class="mensagem">
+                <p class="mensagem-hora">(${m.time})</p>
+                <p class="mensagem-user">${m.from}</p>
+                <p class="mensagem-conteudo">${m.text}</p>
+                </div>`;
+            }
         });
         chat.innerHTML = texto;
     }
