@@ -14,7 +14,7 @@ input.addEventListener(("keydown"), (event) => { // listener para escutar a tecl
     }
 })
 
-// a parte mais significativa da regra de negócio acontece neste escopo
+// toda a regra de negócio parte da função loginUsuario()
 function loginUsuario() {
     // testa resposta
     promise.then((res) => {
@@ -114,10 +114,10 @@ function atualizaChatPeriodico() {
 
 function imprimeMensagens(mensagens) {
     const chat = document.querySelector(".chat");
-    let texto;
+    let texto = "";
+    
     if(mensagens.length > 0){ // se há pelo menos uma mensagem
         mensagens.forEach(m => {
-            console.log(m);
             // se a mensagem é de status, muda a cor
             if (m.type === "status") {
                 texto += `<div data-test="message" class="mensagem mensagem-status">
@@ -134,8 +134,15 @@ function imprimeMensagens(mensagens) {
             }
         });
         chat.innerHTML = texto;
-    }
 
+        // gambiarra para esconder as divs contendo "undefined"
+        const divsMensagem = document.querySelectorAll(".mensagem");
+        divsMensagem.forEach(m => {
+            if(m.innerHTML === "undefined"){
+                m.setAttribute("display", "none");
+            }
+        })
+    }
 }
 
 loginUsuario();
