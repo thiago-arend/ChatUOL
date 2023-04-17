@@ -15,10 +15,13 @@
         <img src="./images/logo 1.svg" alt="">
         <img src="./images/Vector.svg" alt="">
     </div>
+    <div class="margem-superior"></div>
     <div class="chat"></div>
+    <div class="margem-inferior"></div>
+    
     <div class="footer">
-        <input type="text" placeholder="Escreva aqui..." onsubmit="preparaMensagem()">
-        <ion-icon name="paper-plane-outline" onclick="preparaMensagem()"></ion-icon>
+        <input type="text" placeholder="Escreva aqui..." data-test="input-message">
+        <ion-icon name="paper-plane-outline" onclick="preparaMensagem()" data-test="send-message"></ion-icon>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

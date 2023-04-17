@@ -14,20 +14,26 @@ input.addEventListener(("keydown"), (event) => { // listener para escutar a tecl
     }
 })
 
+// a parte mais significativa da regra de negócio acontece neste escopo
 function loginUsuario() {
     // testa resposta
     promise.then((res) => {
+        // atualiza chat com mensagens
+        atualizaChatPeriodico();
+        // verifica status do usuario
         usuarioLogado(usuario);
     });
     promise.catch((err) => {
+        /*
+        OBS.: essa solução comentada parece mais próxima da especificação do problema, 
+        mas tive dificuldade em fazer funcionar
+        */
+
         if(err.response.status === 400){
             window.location.reload();
         }
 
         /*
-        OBS.: essa solução comentada parece mais próxima da especificação do problema, 
-        mas tive dificuldade em fazer funcionar
-
         let erro = err.response.status;
         while(erro === 400){ // enquanto já houver usuario logado com esse nome
             nomeUsuario = prompt("Digite seu nome:");
@@ -52,8 +58,6 @@ function usuarioLogado(usuario) {
         promise = axios.post("https://mock-api.driven.com.br/api/vm/uol/status", usuario);
         promise.then((res) => {
 
-            // atualiza chat com mensagens
-            atualizaChatPeriodico();
         });
         promise.catch((err) => {
             console.log("Erro. Usuário deixou a sala!");
@@ -111,17 +115,18 @@ function atualizaChatPeriodico() {
 function imprimeMensagens(mensagens) {
     const chat = document.querySelector(".chat");
     let texto;
-    if(mensagens.length > 1){ // se há pelo menos uma mensagem
+    if(mensagens.length > 0){ // se há pelo menos uma mensagem
         mensagens.forEach(m => {
+            console.log(m);
             // se a mensagem é de status, muda a cor
-            if (m.text === "entra na sala..." || m.text === "sai da sala...") {
-                texto += `<div class="mensagem mensagem-status">
+            if (m.type === "status") {
+                texto += `<div data-test="message" class="mensagem mensagem-status">
                 <p class="mensagem-hora">(${m.time})</p>
                 <p class="mensagem-user">${m.from}</p>
                 <p class="mensagem-conteudo">${m.text}</p>
                 </div>`;
             } else {
-                texto += `<div class="mensagem">
+                texto += `<div data-test="message" class="mensagem">
                 <p class="mensagem-hora">(${m.time})</p>
                 <p class="mensagem-user">${m.from}</p>
                 <p class="mensagem-conteudo">${m.text}</p>
