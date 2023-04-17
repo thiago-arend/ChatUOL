@@ -128,7 +128,7 @@ function imprimeMensagens(mensagens) {
             } else {
                 texto += `<div data-test="message" class="mensagem">
                 <p class="mensagem-hora">(${m.time})</p>
-                <p class="mensagem-user">${m.from}</p>
+                <p class="mensagem-user">${m.from} para <strong>Todos</strong>:</p>
                 <p class="mensagem-conteudo">${m.text}</p>
                 </div>`;
             }
