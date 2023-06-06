@@ -1,4 +1,4 @@
-axios.defaults.headers.common['Authorization'] = 'jJo7ORw9ajCoGsHMsNZCQBo7';
+axios.defaults.headers.common['Authorization'] = 'qPK1mRrtuw248ZHpWpvqYtEx';
 const input = document.querySelector(".footer input");
 
 // prepara dados para requisição de login do usuário
